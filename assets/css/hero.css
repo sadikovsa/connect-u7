@@ -1,0 +1,105 @@
+/* Главный экран. Рамка 1536x1024 из образца comp-b вписана в высоту и ширину окна (--u = 1 px образца).
+   Экран закреплён (sticky) на длину трека: при прокрутке телефон наезжает камерой, цифры расходятся, плашка уходит вниз (--e от 0 до 1 задаёт main.js).
+   Базовая линия текста: top + 0.8793 * font-size при line-height 1 (метрики Golos Text, измерены в Chrome). */
+/* Сцена (первый экран + туннель + камера) закреплена GSAP: .stage в sections.css */
+.hero {
+  position: absolute; inset: 0; z-index: 2;
+  container-type: size;
+  overflow: hidden;
+  background: var(--ground);
+}
+.hero__scene {
+  --u: min(calc(100cqw / 1536), calc(100cqh / 1024));
+  position: absolute; inset: 0;
+}
+.hero__frame {
+  position: absolute; left: 50%; top: 0;
+  width: calc(1536 * var(--u)); height: calc(1024 * var(--u));
+  margin-left: calc(-768 * var(--u));
+}
+.hero__bandbg, .hero__band { position: absolute; inset: 0; }
+.r { position: absolute; margin: 0; }
+.r-text { line-height: 1; white-space: nowrap; }
+
+/* Навигация: фиксированная полоса, единицы --nu = 1 px образца при ширине 1536 (не крупнее 1.06) */
+.nav {
+  --nu: min(calc(100vw / 1536), 1.06px);
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  height: calc(59 * var(--nu));
+  padding: calc(7 * var(--nu)) calc(49 * var(--nu)) 0 calc(50 * var(--nu));
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(10, 10, 10, 0.72);
+  -webkit-backdrop-filter: saturate(180%) blur(18px);
+  backdrop-filter: saturate(180%) blur(18px);
+  border-bottom: 1px solid #26262a;
+}
+.nav__brand { font-size: calc(16.4 * var(--nu)); letter-spacing: 0.085em; text-transform: uppercase; color: #9d9da0; line-height: 1; }
+.nav__links { display: flex; align-items: center; gap: calc(36 * var(--nu)); }
+.nav__link { font-size: calc(13.4 * var(--nu)); color: #a9aaac; line-height: 1; }
+.nav__cta {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: calc(91 * var(--nu)); height: calc(31 * var(--nu));
+  border-radius: 999px; background: var(--pill-dark); color: #f4f4f4;
+  font-size: calc(13.5 * var(--nu)); line-height: 1;
+}
+
+/* Нижняя полоса: фон и линия на всю ширину, содержимое в рамке */
+.r-band-ground { left: 0; right: 0; top: calc(821 * var(--u)); bottom: 0; background: var(--ground-band); }
+.r-band-rule { left: 0; right: 0; top: calc(818 * var(--u)); height: 1px; background: var(--line); }
+.r-rule-1 { left: 33.79%; top: 83.01%; width: 0.39%; height: 12.11%; background: linear-gradient(var(--line), var(--line)) center / 1px 100% no-repeat; }
+.r-rule-2 { left: 70.7%; top: 83.01%; width: 0.39%; height: 12.11%; background: linear-gradient(var(--line), var(--line)) center / 1px 100% no-repeat; }
+
+/* Гигантские контурные цифры за телефоном */
+.numerals { position: absolute; inset: 0; margin: 0; pointer-events: none; }
+.r-numeral { color: transparent; -webkit-text-stroke: calc(1.5 * var(--u)) var(--outline); transform-origin: left top; }
+.r-numeral-108 { left: calc(-30 * var(--u)); top: calc(87 * var(--u)); font-size: calc(560 * var(--u)); transform: scaleX(0.83); }
+.r-numeral-mp { left: calc(1060 * var(--u)); top: calc(319 * var(--u)); font-size: calc(300 * var(--u)); transform: scaleX(0.975); }
+
+/* Сцена телефона: настоящее фото поверх мягкого света. Камера наезжает на объективы */
+
+/* Текст нижней полосы */
+.r-eyebrow { left: calc(55 * var(--u)); top: calc(859 * var(--u)); font-size: calc(17.3 * var(--u)); letter-spacing: 0.09em; color: #cc9859; text-transform: uppercase; }
+.r-product-name { left: calc(52 * var(--u)); top: calc(883.5 * var(--u)); font-size: calc(61 * var(--u)); font-weight: 400; text-transform: uppercase; color: var(--ink); }
+.r-lead-line { left: calc(587 * var(--u)); top: calc(873.3 * var(--u)); font-size: calc(20.3 * var(--u)); line-height: calc(30 * var(--u)); color: var(--ink-soft); }
+.r-price { left: calc(1171 * var(--u)); top: calc(859 * var(--u)); font-size: calc(29.5 * var(--u)); letter-spacing: -0.02em; color: #f7f7f6; }
+.r-buy-cta {
+  left: calc(1171 * var(--u)); top: calc(909 * var(--u)); width: calc(246 * var(--u)); height: calc(48 * var(--u));
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 999px; background: var(--pill); color: var(--pill-ink);
+  font-size: calc(16.8 * var(--u)); font-weight: 500; line-height: 1;
+}
+.r-price-note { left: calc(1171 * var(--u)); top: calc(969 * var(--u)); font-size: calc(12.5 * var(--u)); color: #8b8b92; }
+
+/* Телефон: слой хранится в максимальном размере (в 2.9 раза больше стартового) и в начале уменьшен: в полном разрешении, без мыла при увеличении.
+   Исходник телефона 790 px по ширине совпадает с размером на экране в конце прокрутки. Золотая аура: рисунок нейросети (screen), течёт по контуру. */
+.r-phone-stage { left: 38.4%; top: -2.9%; width: 64.4%; height: 197.5%; transform-origin: 22% 9%; transform: scale(0.3448); will-change: transform; }   /* стартовый кадр; дальше двигает GSAP */
+.hero-phone { position: absolute; inset: 0; z-index: 2; display: block; width: 100%; height: 100%; }
+/* Мягкое тёплое свечение по контуру: ореол (drop-shadow по силуэту) и тонкая приглушённая аура, обе медленно «переливаются» */
+.hero-aura { position: absolute; left: -35.6%; top: -12.8%; width: 171.2%; height: 125.6%; }
+.hero-aura img { display: block; width: 100%; height: 100%; filter: blur(2.5px); }
+.hero-aura--a { animation: aura-a 8s ease-in-out infinite; }
+.hero-aura--b { transform: scaleX(-1); opacity: 0.6; animation: aura-b 10.5s ease-in-out infinite; }
+@property --aura-ang { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.hero-aura--a img { -webkit-mask-image: conic-gradient(from var(--aura-ang) at 50% 50%, #000 0deg, rgba(0, 0, 0, 0.3) 80deg, #000 150deg, rgba(0, 0, 0, 0.5) 240deg, #000 310deg, #000 360deg); mask-image: conic-gradient(from var(--aura-ang) at 50% 50%, #000 0deg, rgba(0, 0, 0, 0.3) 80deg, #000 150deg, rgba(0, 0, 0, 0.5) 240deg, #000 310deg, #000 360deg); animation: aura-turn 12s linear infinite; }
+@keyframes aura-turn { to { --aura-ang: 360deg; } }
+@keyframes aura-a { 0%, 100% { filter: hue-rotate(-8deg) brightness(0.95); } 50% { filter: hue-rotate(8deg) brightness(1.2); } }
+@keyframes aura-b { 0%, 100% { filter: hue-rotate(8deg) brightness(1.1); transform: scaleX(-1) translate3d(0, 0.8%, 0); } 50% { filter: hue-rotate(-8deg) brightness(0.8); transform: scaleX(-1) translate3d(0, -0.6%, 0); } }
+@media (prefers-reduced-motion: reduce) { .hero-aura, .hero-aura img, .hero-sparks i { animation: none; } .hero-sparks { display: none; } .hero-aura--b { display: none; } }
+
+/* Искры вокруг телефона: те же отлетающие кружочки, что в сцене «Дизайн» */
+.hero-sparks { position: absolute; inset: -8% -50%; z-index: 3; pointer-events: none; }
+.hero-sparks i { position: absolute; left: var(--x); top: var(--y); width: var(--s); height: var(--s); border-radius: 50%; opacity: 0; background: radial-gradient(circle, #fff1d6 0 30%, rgba(255, 190, 110, 0.85) 45%, rgba(255, 160, 70, 0) 72%); animation: float-spark var(--d) linear infinite; animation-delay: var(--w); }
+
+/* Туннель: резкое кольцо объектива (рисунок нейросети) лежит поверх линзы с самого начала и растёт вместе с телефоном; в фото потом
+   вырезается отверстие, центр кольца сквозной. Положение посчитано по фото телефона 850x1738: центр линзы (204.5; 192), диаметр 154,
+   кольцо диаметром 158 чуть шире линзы и закрывает её кромку. */
+.tunnel-ring { position: absolute; left: 14.06%; top: 6.34%; width: 20.08%; height: auto; z-index: 4; transform-origin: 49.8% 47.9%; pointer-events: none; will-change: transform; }
+.hero-phone { --hr: 0.01; -webkit-mask-image: radial-gradient(ellipse calc(var(--hr) * 1%) calc(var(--hr) * 0.489%) at 24.06% 11.05%, transparent 98%, #000 100%); mask-image: radial-gradient(ellipse calc(var(--hr) * 1%) calc(var(--hr) * 0.489%) at 24.06% 11.05%, transparent 98%, #000 100%); }
+/* Ореол: подложка по форме телефона с box-shadow (границы слоя не режут тень, под подложкой отверстие остаётся чистым).
+   Положение телефона в слое: 3.68% / 1.72%, 92.64% x 96.57%. Силу меняет GSAP (--hp, --hq), размер вместе с телефоном. */
+.hero-halo { position: absolute; z-index: 1; left: 8%; top: 4.2%; width: 84%; height: 91.6%; pointer-events: none; transform-origin: 24.06% 11.05%; will-change: transform, opacity; }
+/* Тень рисуется один раз (статичные цвета), «дыхание» только по прозрачности на композиторе: без перерисовки при прокрутке */
+.hero-halo__glow { position: absolute; inset: 0; border-radius: 9% / 4.4%; will-change: opacity; animation: halo-breathe 6s ease-in-out infinite alternate;
+  box-shadow: 0 0 80px 44px rgba(255, 176, 90, 0.5), 0 0 220px 80px rgba(255, 150, 60, 0.28), 0 0 340px 110px rgba(255, 140, 50, 0.14); }
+@keyframes halo-breathe { from { opacity: 0.72; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .hero-halo__glow { animation: none; } }

@@ -1,0 +1,122 @@
+/* Секции 2–12: ритм, фон, сетка. Тёмная основа, светлые полосы под изделие на белом фоне. */
+:root {
+  --cam-bg: #070808;
+  --paper: #f5f5f7;
+  --paper-ink: #1d1d1f;
+  --paper-soft: #6e6e73;
+  --paper-line: #d2d2d7;
+  --ink-faint: #8b8b92;
+  --section-pad: clamp(88px, 11vw, 168px);
+  --wrap: 1200px;
+  --gutter: clamp(20px, 5vw, 48px);
+}
+.wrap { width: 100%; max-width: calc(var(--wrap) + 2 * var(--gutter)); margin-inline: auto; padding-inline: var(--gutter); }
+.section { position: relative; padding-block: var(--section-pad); background: var(--ground); }
+.section--light { background: var(--paper); color: var(--paper-ink); }
+.section__head { text-align: center; margin-bottom: clamp(40px, 6vw, 80px); }
+
+.eyebrow { margin: 0 0 16px; font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); }
+.section--light .eyebrow { color: #8f5a1a; }
+.h2 { margin: 0 auto; max-width: 18ch; font-size: clamp(2.25rem, 1.1rem + 4vw, 4.75rem); font-weight: 600; line-height: 1.04; letter-spacing: -0.025em; text-wrap: balance; }
+.h2--xl { max-width: 14ch; font-size: clamp(2.5rem, 1rem + 5.5vw, 6rem); }
+.h3 { margin: 0 0 12px; font-size: clamp(1.5rem, 1.1rem + 1.2vw, 2.25rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
+.lede { margin: 24px auto 0; max-width: 44ch; font-size: clamp(1.0625rem, 0.95rem + 0.5vw, 1.375rem); line-height: 1.45; color: var(--ink-soft); text-wrap: pretty; }
+.section--light .lede { color: var(--paper-soft); }
+.figcap { margin: 14px 0 0; font-size: 0.8125rem; line-height: 1.4; color: var(--ink-faint); text-align: center; }
+.figcap--left { text-align: left; }
+.wrap.figcap { margin-inline: auto; }
+.figcap--center { text-align: center; margin-top: 28px; }
+.section--light .figcap { color: var(--paper-soft); }
+
+/* 2. Полоса фактов */
+.facts { background: var(--ground); border-bottom: 1px solid var(--line); }
+.facts__list { list-style: none; margin: 0 auto; padding-block: clamp(40px, 6vw, 72px); display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+.facts__list li { display: flex; flex-direction: column; gap: 8px; padding-inline: clamp(16px, 2.5vw, 32px); border-left: 1px solid var(--line); }
+.facts__list li:first-child { border-left: 0; padding-left: 0; }
+.fact__v { font-size: clamp(2rem, 1rem + 3.4vw, 4rem); font-weight: 600; line-height: 1; letter-spacing: -0.03em; color: var(--ink); }
+.fact__l { font-size: 0.9375rem; color: var(--ink-soft); }
+
+/* 3. Дисплей */
+.display { overflow: hidden; }
+
+/* 4. Камера: закреплённая сцена. Стопка линз привязана к 62% ширины окна, чтобы не залезать под текст слева */
+.stage { position: relative; height: 100svh; overflow: hidden; background: var(--ground); }
+.camera { position: absolute; inset: 0; z-index: 1; overflow: hidden; background: var(--cam-bg); padding: 0; }
+.camera__scene { position: absolute; inset: 0; }
+.camera__scene::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 38%; z-index: 1; pointer-events: none; background: linear-gradient(180deg, rgba(7, 8, 8, 0), rgba(7, 8, 8, 0.82) 62%, rgba(7, 8, 8, 0.94)); }
+.camera__art {
+  --aw: max(145svh, 64vw);
+  --by: 68svh;                                   /* высота центра отверстия верхнего раструба в окне */
+  position: absolute; width: var(--aw); aspect-ratio: 1536 / 1182;   /* кадр 1536x1024 плюс 158 единиц запаса сверху для стопки */
+  left: calc(62vw - var(--aw) * 0.4036);
+  top: calc(var(--by) - var(--aw) * 0.39714);
+  transform-origin: 40.36% 51.61%;
+  background: var(--cam-bg);
+  will-change: transform;
+}
+.camera__art img { position: absolute; display: block; height: auto; max-width: none; }
+.camera__base { left: 0; top: 13.367%; width: 100%; mix-blend-mode: lighten; -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 12%); mask-image: linear-gradient(180deg, transparent 0, #000 12%); }
+/* верхняя линза (вырез второго раструба) закрывает пустой раструб; четыре уходят вверх по очереди сверху вниз (старт со сдвигом 0.09, длина 0.64); нижняя остаётся внутри раструба (--d:0 и --t:0) */
+.lens-stack { position: absolute; inset: 0; z-index: 1; isolation: isolate; pointer-events: none; }
+.lens {
+  -webkit-mask-image: radial-gradient(ellipse 44% 44% at 50% 50%, rgba(0, 0, 0, var(--hole, 0.22)) 0 62%, #000 94%); mask-image: radial-gradient(ellipse 44% 44% at 50% 50%, rgba(0, 0, 0, var(--hole, 0.22)) 0 62%, #000 94%);
+  z-index: calc(5 - var(--n));
+  will-change: transform;
+}
+/* луч: маска и обрезка на неподвижной обёртке, двигается только внутренняя полоса */
+.camera__sweep { position: absolute; inset: 0; background: linear-gradient(100deg, transparent 36%, rgba(255, 214, 160, 0.16) 50%, transparent 64%); }
+.camera__copy { position: absolute; left: 0; right: 0; top: 46%; transform: translateY(-50%); z-index: 2; }
+.camera__copy .h2, .camera__copy .lede { margin-inline: 0; text-align: left; }
+.camera__copy .h2 { max-width: 13ch; font-size: clamp(2rem, 1rem + 3.3vw, 4.25rem); }
+.camera__copy .lede { max-width: 32ch; }
+.camera__metrics { position: absolute; z-index: 2; bottom: calc(5svh + 26px); left: max(var(--gutter), calc((100vw - var(--wrap)) / 2)); right: auto; width: min(50vw, 800px); margin: 0; padding: 0; gap: clamp(12px, 2vw, 32px); }
+.camera__metrics dd { font-size: clamp(1.4rem, 0.7rem + 1.5vw, 2.25rem); white-space: nowrap; }
+.camera__metrics dt { color: #b9b9bf; }
+.camera__cap { position: absolute; left: 0; right: 0; bottom: 2svh; z-index: 2; }
+
+
+/* 5б. Два цвета: заголовок внутри сцены, камера отъезжает, свет скользит по телефонам */
+.duo { position: relative; height: 100svh; min-height: 560px; overflow: hidden; background: #0a0a0a; isolation: isolate; }
+/* Слои сцены в кадре 16:9, вписаны «cover» с привязкой к правому краю; телефоны разъезжаются в разные стороны по --e */
+.duo__stage { --sw: max(100vw, 177.78svh); position: absolute; width: var(--sw); height: calc(var(--sw) * 9 / 16); left: calc((100vw - var(--sw)) * 0.9); top: calc((100% - var(--sw) * 9 / 16) * 0.4); }
+.duo__stage img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.duo__phone { will-change: transform; }
+/* Слои нарисованы крупнее оригинала: масштаб 0.68 вокруг центра белого и сдвиг ставят телефоны в исходные места баннера */
+.duo__sweep { position: absolute; inset: 0; z-index: 1; pointer-events: none; mix-blend-mode: screen; background: linear-gradient(100deg, transparent 36%, rgba(255, 214, 160, 0.16) 50%, transparent 64%);  }
+.duo__shade { position: absolute; inset: 0; z-index: 2; background: linear-gradient(90deg, rgba(10, 10, 10, 0.86) 0, rgba(10, 10, 10, 0.3) 48%, transparent 72%), linear-gradient(0deg, rgba(10, 10, 10, 0.6), transparent 34%); }
+.duo__title { position: absolute; z-index: 3; left: max(var(--gutter), calc((100vw - var(--wrap)) / 2)); top: 50%; margin: 0; max-width: 11ch; transform: translateY(-50%); font-size: clamp(2.25rem, 1rem + 4.4vw, 5.25rem); font-weight: 600; line-height: 1.02; letter-spacing: -0.03em; text-wrap: balance; }
+.duo__cap { position: absolute; z-index: 3; left: max(var(--gutter), calc((100vw - var(--wrap)) / 2)); bottom: 18px; margin: 0; text-align: left; color: rgba(255, 255, 255, 0.72); }
+.duo__veil { position: absolute; inset: 0; z-index: 4; background: #0a0a0a; opacity: 0; pointer-events: none; }
+
+/* 6. Производительность и сеть */
+.perf { overflow: hidden; }
+
+/* 7. Аккумулятор */
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--copper); }
+
+/* 8. Цвета и память */
+.choose { padding-bottom: clamp(56px, 7vw, 104px); }
+.choose__grid { display: grid; grid-template-columns: 1.15fr 1fr; align-items: center; gap: clamp(32px, 6vw, 96px); }
+.choose__panel { display: flex; flex-direction: column; gap: 28px; }
+
+/* 9. Комплектация: тёмный фон, светлые карточки предметов в один ряд на всю ширину окна */
+.kit { background: #0a0a0a; border-top: 1px solid var(--line); }
+.kit__list { --kit-gap: clamp(8px, 1.2vw, 20px); list-style: none; margin: 0; padding: 0 clamp(12px, 2vw, 32px); max-width: none; width: 100%; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--kit-gap); }
+.kit__list li { background: #fdfdfd; color: var(--paper-ink); border-radius: clamp(14px, 1.4vw, 22px); padding: clamp(10px, 1.2vw, 20px) clamp(8px, 1vw, 16px) clamp(14px, 1.4vw, 22px); text-align: center; }
+.kit__list img { display: block; width: 100%; height: auto; aspect-ratio: 570 / 815; object-fit: contain; mix-blend-mode: multiply; }
+.kit__name { margin: 8px 0 0; font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.01em; }
+.kit__sub { margin: 4px 0 0; font-size: 0.9375rem; color: var(--paper-soft); }
+
+/* 10. Характеристики */
+.specs { border-top: 1px solid var(--line); }
+.specs__groups { max-width: 860px; }
+.specs__tools { margin: 28px 0 0; display: flex; gap: 20px; justify-content: center; }
+.specs__tools[hidden] { display: none; }
+
+/* 11. Финал */
+.final { overflow: hidden; text-align: center; }
+.final::before { content: ""; position: absolute; left: 50%; bottom: -30%; width: min(1100px, 130%); aspect-ratio: 2 / 1; transform: translateX(-50%); background: radial-gradient(closest-side, rgba(224, 167, 104, 0.22), rgba(224, 167, 104, 0.06) 60%, transparent 78%); pointer-events: none; }
+.final__inner { position: relative; }
+.final__actions { margin: 40px 0 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 20px 32px; }
+.final__note { margin: 24px 0 0; font-size: 0.9375rem; color: var(--ink-faint); }
+

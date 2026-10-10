@@ -1,0 +1,61 @@
+/* Адаптив. Узкие и портретные экраны (до 1000 px или почти квадратные и выше) получают колонку на главном экране.
+   Планшет и ниже: камера без закрепления. Телефон до 760 px: плотная вёрстка секций. */
+@media (max-width: 1000px), (max-aspect-ratio: 5/4) {
+  /* Главный экран в колонку: рамка 390x720, вписана по ширине и высоте окна */
+  .hero__scene { --u: min(calc(100cqw / 390), calc(100cqh / 720)); }
+  .hero__frame { width: calc(390 * var(--u)); height: calc(720 * var(--u)); margin-left: calc(-195 * var(--u)); }
+  .r-band-ground { top: calc(420 * var(--u)); }
+  .r-band-rule { top: calc(420 * var(--u)); }
+  .r-rule-1, .r-rule-2 { display: none; }
+  .r-numeral { -webkit-text-stroke-width: 1px; }
+  .r-numeral-108 { left: calc(-4 * var(--u)); top: calc(52 * var(--u)); font-size: calc(150 * var(--u)); }
+  .r-numeral-mp { left: calc(212 * var(--u)); top: calc(78 * var(--u)); font-size: calc(64 * var(--u)); }
+  .r-phone-stage { left: calc(69.6 * var(--u)); top: calc(97.2 * var(--u)); width: calc(396.4 * var(--u)); height: calc(810.3 * var(--u)); transform: scale(0.3448); }
+  .r-eyebrow { left: calc(24 * var(--u)); top: calc(442 * var(--u)); font-size: calc(13 * var(--u)); }
+  .r-product-name { left: calc(22 * var(--u)); top: calc(466 * var(--u)); font-size: calc(44 * var(--u)); }
+  .r-lead-line { left: calc(24 * var(--u)); top: calc(526 * var(--u)); font-size: calc(15 * var(--u)); line-height: calc(22 * var(--u)); white-space: normal; width: calc(342 * var(--u)); }
+  .r-lead-line br { display: none; }
+  .r-price { left: calc(24 * var(--u)); top: calc(582 * var(--u)); font-size: calc(26 * var(--u)); }
+  .r-price-note { left: calc(24 * var(--u)); top: calc(618 * var(--u)); font-size: calc(12 * var(--u)); white-space: normal; width: calc(342 * var(--u)); }
+  .r-buy-cta { left: calc(24 * var(--u)); top: calc(648 * var(--u)); width: calc(342 * var(--u)); height: calc(52 * var(--u)); font-size: calc(16 * var(--u)); }
+}
+
+@media (max-width: 1100px), (prefers-reduced-motion: reduce) {
+  /* Камера: без закрепления, картинка сверху на всю ширину, текст под ней */
+  .stage { height: auto; overflow: visible; }
+  .hero { position: relative; height: 100svh; }
+  .camera { position: relative; inset: auto; height: auto; overflow: hidden; padding-bottom: var(--section-pad); clip-path: none !important; }
+  .camera__scene { position: relative; inset: auto; transform: none !important; }
+  .camera__art { position: relative; top: auto; left: auto; width: 100%; transform: none; }
+  .camera__copy, .camera__metrics, .camera__cap { position: relative; left: auto; right: auto; top: auto; bottom: auto; transform: none; }
+  .camera__copy { padding-top: clamp(32px, 6vw, 56px); }
+  .camera__metrics { width: 100%; margin-inline: auto; padding-inline: var(--gutter); margin-top: clamp(40px, 6vw, 72px); }
+  .camera__cap { margin-top: 16px; }
+  .lens { transform: none !important; }
+  .tunnel-ring { display: none; }   /* без закрепления линзы стоят в конечных положениях */
+}
+
+@media (max-width: 1000px) {
+  .choose__grid { grid-template-columns: 1fr; }
+  /* комплектация: ряд прокручивается вбок, карточки не сжимаются */
+  .kit__list { display: flex; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; padding-bottom: 8px; }
+  .kit__list::-webkit-scrollbar { display: none; }
+  .kit__list li { flex: 0 0 min(46vw, 220px); scroll-snap-align: start; }
+  .metrics { grid-template-columns: repeat(2, 1fr); }
+  .metrics--three, .metrics--perf { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 760px) {
+  .nav { --nu: 1px; height: 56px; padding: 0 20px; }
+  .nav__brand { font-size: 14px; }
+  .nav__link { display: none; }
+  .nav__cta { width: auto; height: 34px; padding: 0 18px; font-size: 14px; }
+  .facts__list { grid-template-columns: repeat(2, 1fr); row-gap: 28px; }
+  .facts__list li:nth-child(odd) { border-left: 0; padding-left: 0; }
+  .duo { min-height: 480px; }
+  .duo__title { top: 38%; }
+  .spec-table > div { grid-template-columns: 1fr; gap: 4px; }
+  .final__actions { flex-direction: column; }
+  .btn { width: 100%; max-width: 360px; }
+
+}

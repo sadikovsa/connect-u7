@@ -1,0 +1,1 @@
+Golos Text (Paratype / Google Fonts), SIL Open Font License 1.1. Variable weight 400-900. Subsets: cyrillic, latin. Source: https://fonts.google.com/specimen/Golos+Text . Downloaded 2026-10-08 with the user's permission.
