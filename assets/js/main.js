@@ -23,6 +23,17 @@
     videos.forEach(function (v) { vio.observe(v); });
   }
 
+  // --- Лента комплектации на узких экранах прокручивается вбок: даём ей фокус, чтобы листать стрелками ---
+  var kitList = document.querySelector('.kit__list');
+  if (kitList && window.matchMedia) {
+    var narrow = window.matchMedia('(max-width: 1000px)');
+    var syncKitFocus = function () {
+      if (narrow.matches) { kitList.setAttribute('tabindex', '0'); } else { kitList.removeAttribute('tabindex'); }
+    };
+    syncKitFocus();
+    if (narrow.addEventListener) { narrow.addEventListener('change', syncKitFocus); } else { narrow.addListener(syncKitFocus); }
+  }
+
   // --- Плавные аккордеоны характеристик ----------------------------------------
   var groups = [].slice.call(document.querySelectorAll('.spec-group'));
   groups.forEach(function (d) { d._open = d.open; });

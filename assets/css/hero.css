@@ -21,26 +21,32 @@
 .r { position: absolute; margin: 0; }
 .r-text { line-height: 1; white-space: nowrap; }
 
-/* Навигация: фиксированная полоса, единицы --nu = 1 px образца при ширине 1536 (не крупнее 1.06) */
+/* Навигация: фиксированная полоса, единицы --nu = 1 px образца при ширине 1536 (не крупнее 1.06).
+   На узких окнах размеры не падают ниже читаемых и нажимаемых (нижние пределы --nav-*). */
 .nav {
   --nu: min(calc(100vw / 1536), 1.06px);
+  --nav-h-min: 56px;
+  --nav-font-min: 13px;
+  --nav-cta-h-min: 36px;
+  --nav-pad-min: 20px;
   position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-  height: calc(59 * var(--nu));
-  padding: calc(7 * var(--nu)) calc(49 * var(--nu)) 0 calc(50 * var(--nu));
+  height: max(var(--nav-h-min), calc(59 * var(--nu)));
+  padding: calc(7 * var(--nu)) max(var(--nav-pad-min), calc(49 * var(--nu))) 0 max(var(--nav-pad-min), calc(50 * var(--nu)));
   display: flex; align-items: center; justify-content: space-between;
   background: rgba(10, 10, 10, 0.72);
   -webkit-backdrop-filter: saturate(180%) blur(18px);
   backdrop-filter: saturate(180%) blur(18px);
   border-bottom: 1px solid #26262a;
 }
-.nav__brand { font-size: calc(16.4 * var(--nu)); letter-spacing: 0.085em; text-transform: uppercase; color: #9d9da0; line-height: 1; }
-.nav__links { display: flex; align-items: center; gap: calc(36 * var(--nu)); }
-.nav__link { font-size: calc(13.4 * var(--nu)); color: #a9aaac; line-height: 1; }
+/* Цвета текста шапки держат 4,5:1 и на светлых секциях под полупрозрачной шапкой (проверено по пикселям) */
+.nav__brand { padding-block: 11px; font-size: max(14px, calc(16.4 * var(--nu))); letter-spacing: 0.085em; text-transform: uppercase; color: #e2e2e4; line-height: 1; }
+.nav__links { display: flex; align-items: center; gap: max(var(--nav-pad-min), calc(36 * var(--nu))); }
+.nav__link { padding-block: 11px; font-size: max(var(--nav-font-min), calc(13.4 * var(--nu))); color: #e2e2e4; line-height: 1; }
 .nav__cta {
   display: inline-flex; align-items: center; justify-content: center;
-  width: calc(91 * var(--nu)); height: calc(31 * var(--nu));
+  width: max(88px, calc(91 * var(--nu))); height: max(var(--nav-cta-h-min), calc(31 * var(--nu)));
   border-radius: 999px; background: var(--pill-dark); color: #f4f4f4;
-  font-size: calc(13.5 * var(--nu)); line-height: 1;
+  font-size: max(var(--nav-font-min), calc(13.5 * var(--nu))); line-height: 1;
 }
 
 /* Нижняя полоса: фон и линия на всю ширину, содержимое в рамке */
@@ -59,20 +65,23 @@
 
 /* Текст нижней полосы */
 .r-eyebrow { left: calc(55 * var(--u)); top: calc(859 * var(--u)); font-size: calc(17.3 * var(--u)); letter-spacing: 0.09em; color: #cc9859; text-transform: uppercase; }
-.r-product-name { left: calc(52 * var(--u)); top: calc(883.5 * var(--u)); font-size: calc(61 * var(--u)); font-weight: 400; text-transform: uppercase; color: var(--ink); }
+/* Название, кнопка и примечание о цене: на коротких окнах рамка уменьшается, но текст не падает ниже читаемого.
+   Название не заходит на разделитель перед строкой «Камера 108 МП…» (--name-fit), кнопка и примечание сдвигаются вместе. */
+.r-product-name { --name-fit: calc(68 * var(--u)); left: calc(52 * var(--u)); top: calc(883.5 * var(--u)); font-size: max(calc(61 * var(--u)), min(56px, var(--name-fit))); font-weight: 400; text-transform: uppercase; color: var(--ink); }
 .r-lead-line { left: calc(587 * var(--u)); top: calc(873.3 * var(--u)); font-size: calc(20.3 * var(--u)); line-height: calc(30 * var(--u)); color: var(--ink-soft); }
 .r-price { left: calc(1171 * var(--u)); top: calc(859 * var(--u)); font-size: calc(29.5 * var(--u)); letter-spacing: -0.02em; color: #f7f7f6; }
 .r-buy-cta {
-  left: calc(1171 * var(--u)); top: calc(909 * var(--u)); width: calc(246 * var(--u)); height: calc(48 * var(--u));
+  --cta-h: max(calc(48 * var(--u)), 34px);
+  left: calc(1171 * var(--u)); top: calc(909 * var(--u)); width: max(calc(246 * var(--u)), 176px); height: var(--cta-h);
   display: flex; align-items: center; justify-content: center;
   border-radius: 999px; background: var(--pill); color: var(--pill-ink);
-  font-size: calc(16.8 * var(--u)); font-weight: 500; line-height: 1;
+  font-size: max(calc(16.8 * var(--u)), 13px); font-weight: 500; line-height: 1;
 }
-.r-price-note { left: calc(1171 * var(--u)); top: calc(969 * var(--u)); font-size: calc(12.5 * var(--u)); color: #8b8b92; }
+.r-price-note { left: calc(1171 * var(--u)); top: calc(909 * var(--u) + max(calc(48 * var(--u)), 34px) + 12 * var(--u)); width: calc(355 * var(--u)); white-space: normal; font-size: max(calc(12.5 * var(--u)), 11.5px); line-height: 1.15; color: #8b8b92; }
 
 /* Телефон: слой хранится в максимальном размере (в 2.9 раза больше стартового) и в начале уменьшен: в полном разрешении, без мыла при увеличении.
    Исходник телефона 790 px по ширине совпадает с размером на экране в конце прокрутки. Золотая аура: рисунок нейросети (screen), течёт по контуру. */
-.r-phone-stage { left: 38.4%; top: -2.9%; width: 64.4%; height: 197.5%; transform-origin: 22% 9%; transform: scale(0.3448); will-change: transform; }   /* стартовый кадр; дальше двигает GSAP */
+.r-phone-stage { z-index: 3; left: 38.4%; top: -2.9%; width: 64.4%; height: 197.5%; transform-origin: 22% 9%; transform: scale(0.3448); will-change: transform; }   /* z-index: растущий телефон закрывает нижнюю полосу, а не лежит под её текстом */   /* стартовый кадр; дальше двигает GSAP */
 .hero-phone { position: absolute; inset: 0; z-index: 2; display: block; width: 100%; height: 100%; }
 /* Мягкое тёплое свечение по контуру: ореол (drop-shadow по силуэту) и тонкая приглушённая аура, обе медленно «переливаются» */
 .hero-aura { position: absolute; left: -35.6%; top: -12.8%; width: 171.2%; height: 125.6%; }

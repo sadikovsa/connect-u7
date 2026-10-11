@@ -16,7 +16,7 @@
   .r-lead-line { left: calc(24 * var(--u)); top: calc(526 * var(--u)); font-size: calc(15 * var(--u)); line-height: calc(22 * var(--u)); white-space: normal; width: calc(342 * var(--u)); }
   .r-lead-line br { display: none; }
   .r-price { left: calc(24 * var(--u)); top: calc(582 * var(--u)); font-size: calc(26 * var(--u)); }
-  .r-price-note { left: calc(24 * var(--u)); top: calc(618 * var(--u)); font-size: calc(12 * var(--u)); white-space: normal; width: calc(342 * var(--u)); }
+  .r-price-note { left: calc(24 * var(--u)); top: calc(618 * var(--u)); font-size: calc(12 * var(--u)); line-height: 1; white-space: normal; width: calc(342 * var(--u)); }
   .r-buy-cta { left: calc(24 * var(--u)); top: calc(648 * var(--u)); width: calc(342 * var(--u)); height: calc(52 * var(--u)); font-size: calc(16 * var(--u)); }
 }
 
@@ -40,6 +40,7 @@
   /* комплектация: ряд прокручивается вбок, карточки не сжимаются */
   .kit__list { display: flex; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; padding-bottom: 8px; }
   .kit__list::-webkit-scrollbar { display: none; }
+  .kit__list:focus-visible { outline-offset: -3px; }   /* лента на всю ширину: кольцо внутри, чтобы не уходило за край окна */
   .kit__list li { flex: 0 0 min(46vw, 220px); scroll-snap-align: start; }
   .metrics { grid-template-columns: repeat(2, 1fr); }
   .metrics--three, .metrics--perf { grid-template-columns: 1fr; }
@@ -53,7 +54,9 @@
   .facts__list { grid-template-columns: repeat(2, 1fr); row-gap: 28px; }
   .facts__list li:nth-child(odd) { border-left: 0; padding-left: 0; }
   .duo { min-height: 480px; }
-  .duo__title { top: 38%; }
+  /* на узком кадре оба телефона целиком: сцена уже обложки, края плавно уходят в фон, заголовок над телефонами */
+  .duo__stage { --sw: max(100vw, 118svh); left: calc((100vw - var(--sw)) * 0.95); -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 16%, #000 84%, transparent 100%); mask-image: linear-gradient(180deg, transparent 0, #000 16%, #000 84%, transparent 100%); }
+  .duo__title { top: 19%; }
   .spec-table > div { grid-template-columns: 1fr; gap: 4px; }
   .final__actions { flex-direction: column; }
   .btn { width: 100%; max-width: 360px; }

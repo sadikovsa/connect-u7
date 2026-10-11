@@ -106,7 +106,9 @@
       tl.fromTo(scene,
         { scale: 0.5, x: function () { return window.innerWidth / 2 - well().x; }, y: function () { return window.innerHeight / 2 - well().y; } },
         { scale: 1, x: 0, y: 0, duration: TUNNEL, ease: 'power2.out' }, TUNNEL_AT);
-      tl.set(hero, { visibility: 'hidden' }, CAM_AT);
+      // .hero целиком не прячем: visibility: hidden на предке убирает h1 из дерева доступности. Прячем видимое и кнопку, h1 остаётся (полоса к этому времени прозрачна)
+      tl.set([phone, '.numerals', '.hero__bandbg', '.r-buy-cta'], { visibility: 'hidden' }, CAM_AT);
+      tl.set(hero, { pointerEvents: 'none' }, CAM_AT);
 
       // Фаза 3: «Камера»: текст, наезд, пять линз, блик
       gsap.set(['.camera__copy', '.camera__metrics', '.camera__cap'], { opacity: 1 });

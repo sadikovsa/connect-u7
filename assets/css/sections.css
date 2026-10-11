@@ -5,6 +5,7 @@
   --paper-ink: #1d1d1f;
   --paper-soft: #6e6e73;
   --paper-line: #d2d2d7;
+  --focus-on-paper: #8f5a1a;                    /* кольцо фокуса на светлом фоне: 5,3:1 к #f5f5f7 (медный #e0a768 даёт 1,9:1) */
   --ink-faint: #8b8b92;
   --section-pad: clamp(88px, 11vw, 168px);
   --wrap: 1200px;
@@ -16,7 +17,8 @@
 .section__head { text-align: center; margin-bottom: clamp(40px, 6vw, 80px); }
 
 .eyebrow { margin: 0 0 16px; font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); }
-.section--light .eyebrow { color: #8f5a1a; }
+.section--light .eyebrow { color: var(--focus-on-paper); }
+.section--light :focus-visible { outline-color: var(--focus-on-paper); }
 .h2 { margin: 0 auto; max-width: 18ch; font-size: clamp(2.25rem, 1.1rem + 4vw, 4.75rem); font-weight: 600; line-height: 1.04; letter-spacing: -0.025em; text-wrap: balance; }
 .h2--xl { max-width: 14ch; font-size: clamp(2.5rem, 1rem + 5.5vw, 6rem); }
 .h3 { margin: 0 0 12px; font-size: clamp(1.5rem, 1.1rem + 1.2vw, 2.25rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
@@ -72,6 +74,7 @@
 .camera__metrics { position: absolute; z-index: 2; bottom: calc(5svh + 26px); left: max(var(--gutter), calc((100vw - var(--wrap)) / 2)); right: auto; width: min(50vw, 800px); margin: 0; padding: 0; gap: clamp(12px, 2vw, 32px); }
 .camera__metrics dd { font-size: clamp(1.4rem, 0.7rem + 1.5vw, 2.25rem); white-space: nowrap; }
 .camera__metrics dt { color: #b9b9bf; }
+.camera__metrics > div { justify-content: flex-end; }   /* column-reverse: значения прижаты к верху, подпись в две строки не сдвигает «50 МП» */
 .camera__cap { position: absolute; left: 0; right: 0; bottom: 2svh; z-index: 2; }
 
 
@@ -81,6 +84,10 @@
 .duo__stage { --sw: max(100vw, 177.78svh); position: absolute; width: var(--sw); height: calc(var(--sw) * 9 / 16); left: calc((100vw - var(--sw)) * 0.9); top: calc((100% - var(--sw) * 9 / 16) * 0.4); }
 .duo__stage img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
 .duo__phone { will-change: transform; }
+/* Без движения (reduced-motion, без JS или GSAP) телефоны стоят там, где GSAP держит их в середине прокрутки: масштаб 0.68 и сдвиг к центру,
+   иначе слои крупнее и белый телефон заходит под заголовок */
+@media (prefers-reduced-motion: reduce) { .duo__phone { transform-origin: 56.7% 48%; transform: translate(9.3%, 3.5%) scale(0.68); } }
+.no-gsap .duo__phone, html:not(.js) .duo__phone { transform-origin: 56.7% 48%; transform: translate(9.3%, 3.5%) scale(0.68); }
 /* Слои нарисованы крупнее оригинала: масштаб 0.68 вокруг центра белого и сдвиг ставят телефоны в исходные места баннера */
 .duo__sweep { position: absolute; inset: 0; z-index: 1; pointer-events: none; mix-blend-mode: screen; background: linear-gradient(100deg, transparent 36%, rgba(255, 214, 160, 0.16) 50%, transparent 64%);  }
 .duo__shade { position: absolute; inset: 0; z-index: 2; background: linear-gradient(90deg, rgba(10, 10, 10, 0.86) 0, rgba(10, 10, 10, 0.3) 48%, transparent 72%), linear-gradient(0deg, rgba(10, 10, 10, 0.6), transparent 34%); }

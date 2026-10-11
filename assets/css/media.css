@@ -122,14 +122,14 @@
 .choose__stage::before, .choose__stage::after { content: ""; position: absolute; inset: 6% 6%; z-index: -1; border-radius: 50%; transition: opacity 0.7s ease; }
 .choose__stage::before { background: radial-gradient(closest-side, #fff, rgba(255, 255, 255, 0) 100%); opacity: 1; }
 .choose__stage::after { background: radial-gradient(closest-side, rgba(36, 38, 48, 0.2), rgba(36, 38, 48, 0) 100%); opacity: 0; }
-.cphone { grid-area: 1 / 1; display: block; width: auto; height: min(74svh, 700px); max-width: 100%; object-fit: contain; opacity: 0; filter: drop-shadow(0 34px 38px rgba(10, 10, 20, 0.22)); transition: opacity 0.55s ease, transform 0.95s cubic-bezier(0.16, 1, 0.3, 1); }
+.cphone { grid-area: 1 / 1; display: block; width: auto; height: min(74svh, 700px); max-width: 100%; object-fit: contain; opacity: 0; visibility: hidden; filter: drop-shadow(0 34px 38px rgba(10, 10, 20, 0.22)); transition: opacity 0.55s ease, transform 0.95s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 0.55s; }   /* скрытое фото уходит из дерева доступности после затухания */
 .cphone--black { transform: translate3d(-34px, 14px, 0) rotate(-2.4deg) scale(0.96); }
 .cphone--white { transform: translate3d(34px, 14px, 0) rotate(2.4deg) scale(0.96); }
 .choose__grid:has(input[value="black"]:checked) .cphone--black,
-.choose__grid:has(input[value="white"]:checked) .cphone--white { opacity: 1; transform: none; }
+.choose__grid:has(input[value="white"]:checked) .cphone--white { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
 .choose__grid:has(input[value="white"]:checked) .choose__stage::before { opacity: 0; }
 .choose__grid:has(input[value="white"]:checked) .choose__stage::after { opacity: 1; }
-@supports not selector(:has(a)) { .cphone--black { opacity: 1; transform: none; } }
+@supports not selector(:has(a)) { .cphone--black { opacity: 1; visibility: visible; transform: none; } }
 
 /* --- Комплектация: подписи в один ряд --- */
 .kit__name { font-size: clamp(0.8125rem, 0.5rem + 0.45vw, 1.0625rem); }
@@ -185,3 +185,8 @@
 
 /* Блик камеры: узкий, белый */
 .camera__sweep { background: linear-gradient(100deg, transparent 46.5%, rgba(255, 255, 255, 0.055) 50%, transparent 53.5%); }
+
+/* Портретное окно планшета: ролик 16:9 остаётся полосой по ширине окна (на весь экран он обрезал бока телефона и показывал серые поля ролика) */
+@media (min-width: 761px) and (max-aspect-ratio: 5/4) {
+  .game__frame { inset: auto 0; top: calc(50% - 28.125vw); height: 56.25vw; }
+}

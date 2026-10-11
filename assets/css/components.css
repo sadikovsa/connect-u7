@@ -31,21 +31,22 @@
 .chip input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
 .chip span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border-radius: 999px; border: 1px solid var(--paper-line); background: #fff; font-size: 1rem; color: var(--paper-ink); transition: border-color 0.2s, box-shadow 0.2s; }
 .chip input:checked + span { border-color: var(--paper-ink); box-shadow: inset 0 0 0 1px var(--paper-ink); }
-.chip input:focus-visible + span { outline: 2px solid var(--copper); outline-offset: 3px; }
+.chip input:focus-visible + span { outline: 2px solid var(--focus-on-paper); outline-offset: 3px; }
 .variants { min-height: 96px; }
 .variant { display: none; }
 .variant__name { margin: 0; font-size: 1.0625rem; color: var(--paper-soft); }
 .variant__price { margin: 6px 0 0; font-size: clamp(2.25rem, 1.4rem + 2.6vw, 3.5rem); font-weight: 600; line-height: 1.05; letter-spacing: -0.03em; }
 .choose__note { margin: -12px 0 0; font-size: 0.875rem; color: var(--paper-soft); }
-.choose__hint { margin: -12px 0 0; font-size: 0.875rem; color: var(--paper-soft); }
-.choose__hint--other { display: none; }
+.choose__hints { display: grid; margin: -12px 0 0; }
+.choose__hint { grid-area: 1 / 1; margin: 0; font-size: 0.875rem; color: var(--paper-soft); }
+.choose__hint--other { visibility: hidden; }
 .choose__panel:has(input[value="256"]:checked):has(input[value="black"]:checked) [data-v="256-black"],
 .choose__panel:has(input[value="256"]:checked):has(input[value="white"]:checked) [data-v="256-white"],
 .choose__panel:has(input[value="128"]:checked):has(input[value="black"]:checked) [data-v="128-black"],
 .choose__panel:has(input[value="128"]:checked):has(input[value="white"]:checked) [data-v="128-white"] { display: block; }
 /* подсказка под кнопкой: другая версия выбрана, ссылка всё равно на 8/256, чёрный */
-.choose__panel:not(:has(input[value="256"]:checked):has(input[value="black"]:checked)) .choose__hint--same { display: none; }
-.choose__panel:not(:has(input[value="256"]:checked):has(input[value="black"]:checked)) .choose__hint--other { display: block; }
+.choose__panel:not(:has(input[value="256"]:checked):has(input[value="black"]:checked)) .choose__hint--same { visibility: hidden; }
+.choose__panel:not(:has(input[value="256"]:checked):has(input[value="black"]:checked)) .choose__hint--other { visibility: visible; }
 /* без поддержки :has() показываем версию по умолчанию */
 @supports not selector(:has(a)) { .variant[data-v="256-black"] { display: block; } }
 
