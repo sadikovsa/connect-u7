@@ -61,4 +61,8 @@
   .final__actions { flex-direction: column; }
   .btn { width: 100%; max-width: 360px; }
 
+  /* Первый экран и «Камера» на телефоне статичны: без ореола, искр, блика и подсказок для композитора (движение отключено в scenes.js, ветка телефона) */
+  .hero-halo, .hero-sparks, .camera__beam { display: none; }
+  .r-phone-stage, .camera__art, .lens { will-change: auto; }
+  .hero-phone { -webkit-mask-image: none; mask-image: none; }   /* маска нужна только туннелю на десктопе */
 }

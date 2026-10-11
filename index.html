@@ -33,15 +33,10 @@
   <!-- Критичное для первого экрана: оба подмножества шрифта (кириллица и латиница в «CONNECT U7», «108») и кадр телефона (LCP) -->
   <link rel="preload" href="assets/fonts/golos-text-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/golos-text-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/img/hero-phone.webp" as="image" type="image/webp" fetchpriority="high">
-  <link rel="stylesheet" href="assets/css/tokens.css">
-  <link rel="stylesheet" href="assets/css/base.css">
-  <link rel="stylesheet" href="assets/css/hero.css">
-  <link rel="stylesheet" href="assets/css/sections.css">
-  <link rel="stylesheet" href="assets/css/components.css">
-  <link rel="stylesheet" href="assets/css/motion.css">
-  <link rel="stylesheet" href="assets/css/media.css">
-  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="preload" href="assets/img/hero-phone-m.webp" as="image" type="image/webp" media="(max-width: 760px)" fetchpriority="high">
+  <link rel="preload" href="assets/img/hero-phone.webp" as="image" type="image/webp" media="(min-width: 761px)" fetchpriority="high">
+  <!-- Один файл вместо восьми: собирается из assets/css/*.css командой node tools/build-css.js -->
+  <link rel="stylesheet" href="assets/css/site.min.css">
   <script>document.documentElement.classList.add('js')</script>
   <script type="application/ld+json">
   {
@@ -94,7 +89,7 @@
           <div class="r r-phone-stage" role="img" aria-label="Смартфон CONNECT U7, вид сзади: три объектива камеры 108 МП, вокруг золотое свечение">
             <span class="hero-halo" aria-hidden="true"><span class="hero-halo__glow"></span></span>
               <span class="hero-sparks" aria-hidden="true"><i style="--x:24.3%;--y:78.9%;--s:4.3px;--d:7.9s;--w:-5.2s;--dx:0.4vmin"></i><i style="--x:85.5%;--y:18.3%;--s:4.1px;--d:5.1s;--w:-8.4s;--dx:3.1vmin"></i><i style="--x:76.8%;--y:72.1%;--s:4.9px;--d:6.7s;--w:-7.9s;--dx:4.0vmin"></i><i style="--x:40.3%;--y:7.6%;--s:4.8px;--d:7.6s;--w:-0.5s;--dx:1.6vmin"></i><i style="--x:82.7%;--y:34.0%;--s:4.5px;--d:8.4s;--w:-1.3s;--dx:1.3vmin"></i><i style="--x:88.5%;--y:88.3%;--s:2.6px;--d:5.1s;--w:-1.0s;--dx:-2.9vmin"></i><i style="--x:49.9%;--y:93.2%;--s:3.9px;--d:8.7s;--w:-6.9s;--dx:1.8vmin"></i><i style="--x:10.7%;--y:36.1%;--s:3.8px;--d:6.2s;--w:-8.9s;--dx:-1.8vmin"></i><i style="--x:94.0%;--y:80.6%;--s:5.0px;--d:7.0s;--w:-6.5s;--dx:0.5vmin"></i><i style="--x:2.0%;--y:90.9%;--s:3.9px;--d:7.8s;--w:-6.1s;--dx:4.0vmin"></i><i style="--x:96.0%;--y:69.7%;--s:3.1px;--d:5.5s;--w:-3.5s;--dx:-0.3vmin"></i><i style="--x:79.8%;--y:35.6%;--s:3.2px;--d:8.8s;--w:-3.2s;--dx:-2.7vmin"></i><i style="--x:22.6%;--y:69.1%;--s:3.6px;--d:6.9s;--w:-3.6s;--dx:-0.0vmin"></i><i style="--x:13.7%;--y:79.8%;--s:5.4px;--d:8.1s;--w:-9.6s;--dx:3.8vmin"></i><i style="--x:5.9%;--y:48.7%;--s:3.1px;--d:5.4s;--w:-1.0s;--dx:2.3vmin"></i><i style="--x:31.2%;--y:86.5%;--s:2.5px;--d:9.3s;--w:-2.7s;--dx:-0.6vmin"></i><i style="--x:15.9%;--y:44.3%;--s:4.5px;--d:8.1s;--w:-5.6s;--dx:-1.1vmin"></i><i style="--x:80.5%;--y:67.7%;--s:3.0px;--d:9.5s;--w:-1.5s;--dx:2.5vmin"></i><i style="--x:27.2%;--y:95.1%;--s:2.1px;--d:5.9s;--w:-8.6s;--dx:-1.8vmin"></i><i style="--x:53.6%;--y:5.4%;--s:3.1px;--d:7.9s;--w:-5.6s;--dx:0.4vmin"></i><i style="--x:81.6%;--y:62.7%;--s:3.0px;--d:9.3s;--w:-0.7s;--dx:0.9vmin"></i><i style="--x:79.2%;--y:73.1%;--s:2.5px;--d:7.4s;--w:-2.2s;--dx:1.8vmin"></i><i style="--x:9.3%;--y:71.4%;--s:2.3px;--d:8.0s;--w:-7.2s;--dx:-2.0vmin"></i><i style="--x:0.6%;--y:29.6%;--s:2.3px;--d:5.4s;--w:-4.6s;--dx:-3.0vmin"></i><i style="--x:7.8%;--y:9.5%;--s:2.3px;--d:6.0s;--w:-0.6s;--dx:3.3vmin"></i><i style="--x:92.4%;--y:14.0%;--s:4.8px;--d:6.9s;--w:-1.1s;--dx:-1.2vmin"></i><i style="--x:84.2%;--y:61.5%;--s:3.6px;--d:6.7s;--w:-0.5s;--dx:2.1vmin"></i><i style="--x:0.3%;--y:64.7%;--s:5.0px;--d:9.7s;--w:-7.3s;--dx:-1.5vmin"></i><i style="--x:8.0%;--y:17.1%;--s:3.3px;--d:9.1s;--w:-6.3s;--dx:2.1vmin"></i><i style="--x:82.1%;--y:67.7%;--s:3.2px;--d:7.9s;--w:-7.4s;--dx:-2.6vmin"></i><i style="--x:80.4%;--y:63.8%;--s:3.8px;--d:8.2s;--w:-1.5s;--dx:-4.3vmin"></i><i style="--x:1.8%;--y:73.6%;--s:4.5px;--d:9.3s;--w:-2.0s;--dx:-1.9vmin"></i><i style="--x:62.2%;--y:11.2%;--s:4.4px;--d:7.3s;--w:-5.2s;--dx:1.0vmin"></i><i style="--x:74.0%;--y:86.6%;--s:2.8px;--d:9.3s;--w:-6.7s;--dx:3.7vmin"></i><i style="--x:20.4%;--y:39.2%;--s:4.5px;--d:9.8s;--w:-0.2s;--dx:-0.2vmin"></i><i style="--x:81.4%;--y:60.9%;--s:2.4px;--d:7.9s;--w:-6.1s;--dx:4.1vmin"></i><i style="--x:21.8%;--y:50.8%;--s:5.0px;--d:8.7s;--w:-2.0s;--dx:2.3vmin"></i><i style="--x:85.4%;--y:33.8%;--s:2.6px;--d:8.3s;--w:-9.7s;--dx:0.5vmin"></i><i style="--x:4.2%;--y:31.3%;--s:4.2px;--d:6.5s;--w:-7.4s;--dx:-2.1vmin"></i><i style="--x:83.6%;--y:52.3%;--s:2.2px;--d:7.9s;--w:-8.4s;--dx:0.1vmin"></i><i style="--x:90.1%;--y:56.2%;--s:3.4px;--d:6.4s;--w:-6.7s;--dx:3.2vmin"></i><i style="--x:5.2%;--y:55.1%;--s:5.2px;--d:8.0s;--w:-9.3s;--dx:2.5vmin"></i><i style="--x:9.7%;--y:20.9%;--s:4.1px;--d:6.6s;--w:-5.0s;--dx:-3.7vmin"></i><i style="--x:6.2%;--y:15.4%;--s:3.2px;--d:8.9s;--w:-0.2s;--dx:-1.8vmin"></i><i style="--x:82.3%;--y:41.5%;--s:5.2px;--d:7.0s;--w:-0.8s;--dx:-1.0vmin"></i><i style="--x:93.8%;--y:33.6%;--s:3.8px;--d:9.3s;--w:-1.1s;--dx:-0.7vmin"></i><i style="--x:79.7%;--y:72.4%;--s:5.2px;--d:5.2s;--w:-9.7s;--dx:2.6vmin"></i><i style="--x:11.4%;--y:67.3%;--s:3.8px;--d:8.0s;--w:-1.2s;--dx:-4.3vmin"></i></span>
-            <img class="hero-phone" src="assets/img/hero-phone.webp" width="1196" height="2446" alt="" fetchpriority="high" decoding="async">
+            <picture><source media="(max-width: 760px)" srcset="assets/img/hero-phone-m.webp"><img class="hero-phone" src="assets/img/hero-phone.webp" width="1196" height="2446" alt="" fetchpriority="high" decoding="async"></picture>
             <img class="tunnel-ring" src="assets/img/lens-ring.webp" width="1024" height="1024" alt="" loading="lazy" decoding="async">
           </div>
           <div class="hero__band">
@@ -443,6 +438,6 @@
   <script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
   <script src="assets/js/scenes.js" defer></script>
   <script src="assets/js/main.js" defer></script>
-  <script src="assets/js/debug.js" defer></script>
+  <script>if (/[?&]debug\b/.test(location.search)) { var dbg = document.createElement('script'); dbg.src = 'assets/js/debug.js'; document.body.appendChild(dbg); }</script>
 </body>
 </html>

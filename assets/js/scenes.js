@@ -2,6 +2,7 @@
 // Сцена 1: закреплённый экран .stage: первый экран (зум к первой камере) → туннель через объектив → блок «Камера»
 // (камера наезжает, пять линз выходят из раструба, по корпусу скользит свет). Остальное: появление блоков, ролики,
 // «Дизайн» с парящим телефоном, «Игры» на весь экран, «Два цвета». Без GSAP или при prefers-reduced-motion страница статична.
+// На телефоне (до 760 px) первый экран и «Камера» без движения: ScrollTrigger для них не создаётся.
 (function () {
   'use strict';
   var root = document.documentElement;
@@ -122,8 +123,9 @@
         tl.fromTo(lens, { yPercent: t, scale: 1 - d }, { yPercent: 0, scale: 1, duration: 0.64 * CAM, ease: 'power2.inOut' }, CAM_AT + n * 0.09 * CAM);
       });
       tl.fromTo(sweep, { xPercent: -70 }, { xPercent: 70, duration: CAM }, CAM_AT);
-    } else {
-      // Планшет и телефон: первый экран закреплён и приближается, камера идёт обычным блоком
+    } else if (c.wide) {
+      // Планшет (761-1100 px): первый экран закреплён и приближается, камера идёт обычным блоком.
+      // Телефон (до 760 px): первый экран и «Камера» статичны, ScrollTrigger для них не создаётся (раскладка и скрытие ореола, искр и блика в responsive.css)
       var ctl = gsap.timeline({ defaults: { ease: 'none' },
         scrollTrigger: { trigger: hero, start: 'top top', end: '+=170%', pin: true, scrub: 0.7, anticipatePin: 1, invalidateOnRefresh: true, refreshPriority: 3 } });
       heroZoom(ctl, hero, phone, 0, 10);

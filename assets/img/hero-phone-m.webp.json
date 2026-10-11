@@ -1,0 +1,4 @@
+{
+  "prompt": "DERIVATIVE of assets/img/hero-phone.webp (AI-GENERATED, gpt-image-2.5-flare, user key, quality high; original prompt and origin are in hero-phone.webp.json). Not a new generation: the same frame reduced exactly 2x (598x1223 from 1196x2446, same proportions and alpha) by tools/make-hero-phone-m.js (Chrome canvas, smoothing high, WebP quality 0.86) for screens up to 760 px wide, to speed up the first paint on mobile.",
+  "createdAt": "2026-10-11T10:42:00.000Z"
+}
