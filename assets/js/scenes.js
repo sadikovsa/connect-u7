@@ -111,8 +111,8 @@
       tl.set(hero, { pointerEvents: 'none' }, CAM_AT);
 
       // Фаза 3: «Камера»: текст, наезд, пять линз, блик
-      gsap.set(['.camera__copy', '.camera__metrics', '.camera__cap'], { opacity: 1 });
-      tl.fromTo(['.camera__copy > *', '.camera__metrics > div', '.camera__cap'], { opacity: 0, y: 30 },
+      gsap.set(['.camera__copy', '.camera__metrics'], { opacity: 1 });
+      tl.fromTo(['.camera__copy > *', '.camera__metrics > div'], { opacity: 0, y: 30 },
         { opacity: 1, y: 0, duration: 3, stagger: 0.35, ease: 'power3.out' }, CAM_AT - 2);
       tl.fromTo(art, { scale: 1 }, { scale: 1.06, duration: CAM, ease: 'power1.inOut' }, CAM_AT);
       lenses.forEach(function (lens, n) {
@@ -169,8 +169,7 @@
       ScrollTrigger.create({ trigger: duo, start: 'top 75%', once: true, onEnter: function () {
         gsap.timeline()
           .to('.duo__veil', { opacity: 0, duration: 1.6, ease: 'power3.out' }, 0)
-          .fromTo('.duo__title', { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' }, 0.5)
-          .to('.duo__cap', { opacity: 1, duration: 1.1, ease: 'power2.out' }, 0.5);
+          .fromTo('.duo__title', { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' }, 0.5);
       } });
     }
 

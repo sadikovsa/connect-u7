@@ -1,7 +1,4 @@
-# Демо-макет на GitHub Pages. Индексация не закрыта; решение по noindex за владельцем.
-# Примечание: поисковики читают robots.txt только в корне домена. На адресе
-# https://sadikovsa.github.io/connect-u7/robots.txt он служебный; рабочий файл нужен в корне боевого домена.
+# Демо-макет на GitHub Pages. Страница закрыта от индексации тегом <meta name="robots" content="noindex">.
+# Crawl здесь разрешён намеренно: иначе поисковик не прочитает noindex.
 User-agent: *
 Allow: /
-
-Sitemap: https://sadikovsa.github.io/connect-u7/sitemap.xml
